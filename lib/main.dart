@@ -1,56 +1,38 @@
-//Bottom sheet and dynamic theme
-
+//Route Navigation for named Routes using GetX Library
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-void main() {
-  runApp(MyApp());
+import 'package:student_app/forlearning/getx_get_route.dart';
+void main(){
+runApp(MyWidget());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: "bottom sheet",
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("bottom sheet"),
-        ),
+      initialRoute: "/",
+      defaultTransition: Transition.zoom,
+      getPages: [
+        GetPage(name: "/", page:() => MyWidget()),
+        GetPage(name: "/home", page:() => Homes()),
+        GetPage(name: "/next screen", page: () => Homes(),transition: Transition.leftToRight)
+      ], 
+       home: Scaffold(
         body: Center(
-          child: Column(
+           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ElevatedButton(
-                  onPressed: () {
-                    Get.bottomSheet(
-                      Wrap(
-                        children: <Widget>[
-                          ListTile(
-                            leading: Icon(Icons.wb_sunny_outlined),
-                            title: Text("Light theme"),
-                            onTap: () => {
-                              Get.changeTheme(ThemeData.light())
-                            },
-                          ),
-                          ListTile(
-                            leading: Icon(Icons.wb_sunny),
-                            title: Text("Dart theme"),
-                            onTap: () => {
-                              Get.changeTheme(ThemeData.dark())
-                            },
-                          ),
-                        ],
-                      ));
-                  },
-                  child: Text("bottom sheet"))
+              ElevatedButton(onPressed:(){
+                Get.toNamed("/home");
+              }, child:Text("ZZZZZZZZ"))
             ],
-          ),
+           ),
+          )
         ),
-      ),
-    );
+       );
   }
 }
