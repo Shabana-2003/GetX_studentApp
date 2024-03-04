@@ -1,38 +1,72 @@
-//Route Navigation for named Routes using GetX Library
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:student_app/forlearning/getx_get_route.dart';
-void main(){
-runApp(MyWidget());
+
+void main() {
+  runApp(MyApp());
 }
 
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: "/",
-      defaultTransition: Transition.zoom,
-      getPages: [
-        GetPage(name: "/", page:() => MyWidget()),
-        GetPage(name: "/home", page:() => Homes()),
-        GetPage(name: "/next screen", page: () => Homes(),transition: Transition.leftToRight)
-      ], 
-       home: Scaffold(
-        body: Center(
-           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ElevatedButton(onPressed:(){
-                Get.toNamed("/home");
-              }, child:Text("ZZZZZZZZ"))
-            ],
-           ),
-          )
+      title: "Dialog",
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Dialog"),
         ),
-       );
+        body: Center(
+          child: Column(
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    //  Get.defaultDialog();// can see a default dialog
+
+                    Get.defaultDialog(
+                        title: "Dialog Title",
+                        middleText: "this is middile text",
+                        backgroundColor:
+                            const Color.fromARGB(255, 227, 135, 128),
+                        radius: 20,
+
+                        //cancel and conform action
+                        textCancel: "Cancel",
+                        cancelTextColor: Colors.amber,
+                        textConfirm: "conform",
+                        confirmTextColor: Colors.red,
+                        onCancel: () {},
+                        onConfirm: () {},
+                        buttonColor: Colors.green,
+
+                        //override the defauld cancel and conform
+                        cancel: const Text(
+                          "override cancel",
+                          style:
+                              TextStyle(color: Color.fromARGB(255, 3, 92, 124)),
+                        ),
+                        confirm: const Text(
+                          "override conform",
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 141, 108, 10)),
+                        ),
+
+                        //actions, its a type of button
+                        actions: [
+                          ElevatedButton(
+                              onPressed: () {}, child: Text("action1")),
+                          ElevatedButton(
+                              onPressed: () {}, child: Text("action1"))
+                        ],
+                      //  barrierDismissible:false,//not dismiss the dialog box
+                         barrierDismissible:true,// dialog box can diamissable
+                        );
+                  },
+                  child: Text("Show dialog"))
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

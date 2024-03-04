@@ -1,36 +1,7 @@
-// route navigation 
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main(){
-runApp(MyApp());
-}
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return  GetMaterialApp(
-        home: Scaffold(
-        body: Center(
-           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ElevatedButton(onPressed:(){
-                Get.to(Homes(),
-                //fullscreenDialog: true,
-                duration: Duration(milliseconds: 3000)
-                );// go to home page 
-              }, child:Text("go to home"))
-            ],
-           ),
-          )
-        ),
-    );
-  }
-}
 class Homes extends StatelessWidget {
   const Homes({super.key});
 
@@ -48,6 +19,47 @@ class Homes extends StatelessWidget {
   }
 }
 
+
+//Route Navigation for named Routes using GetX Library
+
+void main(){
+runApp(MyWidget());
+}
+
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      initialRoute: "/",
+      //defaultTransition: Transition.zoom,
+      getPages: [
+        GetPage(name: "/", page:(){ return MyWidget();}),
+        GetPage(name: "/home", page:() => Homes()),
+        GetPage(name: "/next screen", page: () => Homes(),transition: Transition.leftToRight)
+      ], 
+       home: Scaffold(
+
+        body: Container(
+          color: Colors.amber,
+          child: Center(
+             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ElevatedButton(onPressed:(){
+                  Get.toNamed("/home");
+                }, child:Text("ZZZZZZZZ"))
+              ],
+             ),
+            ),
+        )
+        ),
+       );
+  }
+}
 //go to home screen but no option to return to previous screen 
 //Get.off(Homes());
 
